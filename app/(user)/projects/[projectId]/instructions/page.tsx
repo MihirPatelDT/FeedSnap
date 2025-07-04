@@ -15,7 +15,7 @@ const page = async  ({ params }: { params: { projectId: string } }) => {
 
       <div className="bg-blue-950 p-6 rounded-md mt-4 relative">
         <code className="text-white">
-          {`<my-widget project="${projectId}"></my-widget>`}
+          {`<my-widget project-id="${projectId}"></my-widget>`}
           <br />
           {`<script src="${process.env.WIDGET_URL}/widget.umd.js"></script>`}
         </code>

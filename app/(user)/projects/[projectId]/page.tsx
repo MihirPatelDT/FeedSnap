@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { db } from "@/db"
 import { projects as dbProject } from "@/db/schema"
 import { eq } from "drizzle-orm"
-import { ChevronLeft, Globe } from "lucide-react"
+import { ChevronLeft, Code, Globe } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 
@@ -29,7 +29,13 @@ const page = async ({
   return (
     <div>
       <div>
-        <Link href="/dashboard" className="flex items-center mb-5 text-indigo-700 ml-[-4px]"><ChevronLeft className="h-5 w-5 mr-1"/><span className="text-lg">Back to projects</span></Link>
+        <Link
+          href="/dashboard"
+          className="flex items-center mb-5 text-indigo-700 ml-[-4px] w-fit"
+        >
+          <ChevronLeft className="h-5 w-5 mr-1" />
+          <span className="text-lg">Back to projects</span>
+        </Link>
       </div>
       <div className="flex justify-between items-start">
         <div>
@@ -38,14 +44,25 @@ const page = async ({
             {project.description}
           </h2>
         </div>
-        {project.url ? (
-          <Button className="rounded-full">
-            <Link href={project.url} className="flex items-center">
-              <Globe className="h-5 w-5 mr-1" />
-              <span className="text-lg">Visit Site</span>
+        <div className="flex flex-col ">
+          {project.url ? (
+            <Button className="rounded-full"   >
+              <Link href={project.url} className="flex items-center">
+                <Globe className="h-5 w-5 mr-1" />
+                <span className="text-lg">Visit Site</span>
+              </Link>
+            </Button>
+          ) : null}
+          <Button className="rounded-full mt-4 bg-orange-600" size="sm">
+            <Link
+              href={`/projects/${projectId}/instructions`}
+              className="flex items-center"
+            >
+              <Code className="h-5 w-5 mr-1" />
+              <span className="text-lg">Embed Code</span>
             </Link>
           </Button>
-        ) : null}
+        </div>
       </div>
       <div>
         <App data={project.feedbacks} />

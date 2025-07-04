@@ -8,6 +8,7 @@ import {
 import Image from "next/image"
 import React from "react"
 import { Button } from "../ui/button"
+import HeaderMenu from "./header-menu"
 
 const PageHeader = () => {
   return (
@@ -24,9 +25,12 @@ const PageHeader = () => {
                 <Button className="bg-black ml-2">Sign Up</Button>
               </SignUpButton>
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            <div className="flex items-center">
+              <SignedIn>
+                <HeaderMenu />
+                <UserButton />
+              </SignedIn>
+            </div>
           </div>
         </div>
       </div>
