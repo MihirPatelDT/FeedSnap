@@ -6,30 +6,26 @@ import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-type Props = {
-  price: string
-}
+import React from "react"
 
-export const SubscribeBtn = ({ price }: Props) => {
+const ManageSubscription = () => {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleCheckout = async (price: string) => {
+  const redirectToCustomerPortal = async () => {
+    console.log("inside");
+    
     setLoading(true)
     try {
-      const { sessionId } = await fetch("/api/stripe/checkout-session", {
+      const { url } = await fetch("/api/stripe/create-portal", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ price }),
       }).then((res) => res.json())
 
-      const stripe = await getStripe()
-      if (stripe) {
-        stripe.redirectToCheckout({ sessionId })
-      }
+      router.push(url.url)
     } catch (error) {
       console.log(error)
     }
@@ -42,17 +38,19 @@ export const SubscribeBtn = ({ price }: Props) => {
   return (
     <Button
       className="bg-indigo-700"
-      onClick={() => handleCheckout(price)}
+      onClick={() => redirectToCustomerPortal()}
       disabled={loading}
     >
       {loading ? (
         <>
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className=" h-4 w-4 animate-spin" />
           Please wait
         </>
       ) : (
-        "Subscribe"
+        "Upgrade Your Subscription"
       )}
     </Button>
   )
 }
+
+export default ManageSubscription

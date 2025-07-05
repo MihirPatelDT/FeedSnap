@@ -5,6 +5,8 @@ import { db } from "@/db"
 import { auth } from "@clerk/nextjs/server"
 import { eq } from "drizzle-orm"
 import ProjectsList from "./project-list"
+import { getSubscription } from "@/actions/userSubscription"
+import { maxFreeProjects } from "@/lib/payments"
 
 const Dashboard = async () => {
   const { userId } = await auth()
@@ -17,12 +19,16 @@ const Dashboard = async () => {
     .where(eq(projects.userId, userId))
   // console.log(allProjects)
 
+  const subscribed = await getSubscription({ userId })
+
   return (
     <div>
-      <NewProjBtn />
-      <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>
+      {subscribed !== true && userProjects.length >= maxFreeProjects ? null : (
+        <NewProjBtn />
+      )}
 
-      <ProjectsList projects={userProjects} />
+      <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>
+      {!subscribed ? <ProjectsList projects={userProjects} /> : null}
     </div>
   )
 }
