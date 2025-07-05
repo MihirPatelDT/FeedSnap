@@ -3,6 +3,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.footercolor {
+ background-image: radial-gradient( circle farthest-corner at 97.4% 91.4%,  rgba(204,0,107,1) 0%, rgba(0,0,0,1) 82.4% );}
+
+.text-gradient {
+ color: #D2B48C; 
+ background-image: linear-gradient(45deg, #D2B48C , #C4A77E , #B69A70 , #A88D62 , #9A8054 ); 
+ background-clip: text; 
+ -webkit-background-clip: text; 
+ -webkit-text-fill-color: transparent; 
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -116,6 +127,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

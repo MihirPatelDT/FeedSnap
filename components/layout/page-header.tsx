@@ -13,11 +13,11 @@ import Link from "next/link"
 
 const PageHeader = () => {
   return (
-    <header className="border-b sticky inset-x-0 top-0 z-30 w-full transition-all ">
+    <header className="border-b sticky inset-x-0 top-0 z-30 w-full transition-all bg-white/20 backdrop-blur-md ">
       <div className="w-full max-w-screen-xl px-2.5 lg:px-20 relative mx-auto ">
         <div className="flex h-14 items-center justify-between">
           <Link href="/">
-            <Image src="/logo.png" alt="Logo" width={140} height={100} />
+            <Image src="/logo2.png" alt="Logo" width={140} height={100} />
           </Link>
           <div>
             <SignedOut>

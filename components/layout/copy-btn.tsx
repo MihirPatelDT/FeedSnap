@@ -1,7 +1,7 @@
 "use client"
 
-import { Clipboard } from "lucide-react"
-import React from "react"
+import { Clipboard, Check } from "lucide-react"
+import React, { useState } from "react"
 import {
   Tooltip,
   TooltipContent,
@@ -9,11 +9,14 @@ import {
 } from "@/components/ui/tooltip"
 
 const CopyBtn = ({ text }: { text: string }) => {
+  const [copied, setCopied] = useState(false)
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
-      alert("Copied to clipboard")
+      setCopied(true)
     })
   }
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -21,11 +24,11 @@ const CopyBtn = ({ text }: { text: string }) => {
           onClick={() => copyToClipboard(text)}
           className="text-slate-50 absolute right-0 top-0 p-1"
         >
-          <Clipboard />
+          {copied ? <Check className="text-green-400" /> : <Clipboard />}
         </button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>Copy Code</p>
+        <p>{copied ? "Copied!" : "Copy Code"}</p>
       </TooltipContent>
     </Tooltip>
   )
